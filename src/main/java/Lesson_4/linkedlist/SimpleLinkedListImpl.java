@@ -3,6 +3,7 @@ package Lesson_4.linkedlist;
 import Lesson_4.ICollection;
 
 import java.util.Iterator;
+import java.util.function.Consumer;
 
 public class SimpleLinkedListImpl<E> implements LinkedList<E> {
 
@@ -112,6 +113,22 @@ public class SimpleLinkedListImpl<E> implements LinkedList<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return null;
+        return new Iterator<E>() {
+
+            Node<E> previous, current = firstElement;
+
+
+            @Override
+            public boolean hasNext() {
+                return current.next != null;
+            }
+
+            @Override
+            public E next() {
+                previous = current;
+                current = current.next;
+                return current.value;
+            }
+        };
     }
 }

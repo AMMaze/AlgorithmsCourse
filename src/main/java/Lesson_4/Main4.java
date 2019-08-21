@@ -10,7 +10,7 @@ import Lesson_4.linkedlist.*;
 public class Main4 {
 
     public static void main(String[] args) {
-//        testSimpleLinkedList();
+        testSimpleLinkedList();
 //        testStack();
 //        testTwoSideLinkedList();
         testQueue();
@@ -54,6 +54,10 @@ public class Main4 {
 
         System.out.println("Size is " + linkedList.size());
         linkedList.display();
+
+        for (Integer it : linkedList) {
+            System.out.println(it);
+        }
 
         while (!linkedList.isEmpty()) {
             System.out.println(linkedList.removeFirst());
