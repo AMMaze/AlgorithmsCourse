@@ -35,6 +35,14 @@ public class Main {
 
         public String name;
         public int weight, cost;
+
+        @Override
+        public boolean equals(Object obj) {
+            if (!(obj instanceof Item))
+                return false;
+            Item item = (Item) obj;
+            return item.name.equals(name) && item.weight == weight && item.cost == cost;
+        }
     }
 
     static class Pair<T, E> {
