@@ -1,5 +1,6 @@
 package Lesson_6;
 
+import java.util.Random;
 import java.util.Stack;
 
 public class BinaryTree {
@@ -182,5 +183,14 @@ public class BinaryTree {
         if (node == null)
             return 0;
         return Math.max(level(node.getLeftChild()), level(node.getRightChild())) + 1;
+    }
+
+    public static BinaryTree createRandomTree (int depth, int min, int max) {
+        BinaryTree tree = new BinaryTree();
+        Random random = new Random();
+        while (tree.depth() != depth) {
+            tree.add(random.nextInt(max - min + 1) + min);
+        }
+        return tree;
     }
 }
