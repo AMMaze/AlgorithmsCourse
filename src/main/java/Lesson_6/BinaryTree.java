@@ -179,7 +179,7 @@ public class BinaryTree {
         return level(root);
     }
 
-    public int level(Node node) {
+    public static int level(Node node) {
         if (node == null)
             return 0;
         return Math.max(level(node.getLeftChild()), level(node.getRightChild())) + 1;
@@ -192,5 +192,14 @@ public class BinaryTree {
             tree.add(random.nextInt(max - min + 1) + min);
         }
         return tree;
+    }
+
+    public static boolean isBalanced(Node node) {
+        return (node == null) || isBalanced(node.getLeftChild()) && isBalanced(node.getRightChild()) &&
+                Math.abs(level(node.getLeftChild()) - level(node.getRightChild())) <= 1;
+    }
+
+    public boolean isBalanced() {
+        return isBalanced(root);
     }
 }
