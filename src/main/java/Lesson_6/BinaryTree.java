@@ -173,4 +173,14 @@ public class BinaryTree {
             System.out.println("..........................................");
         }
     }
+
+    public int depth() {
+        return level(root);
+    }
+
+    public int level(Node node) {
+        if (node == null)
+            return 0;
+        return Math.max(level(node.getLeftChild()), level(node.getRightChild())) + 1;
+    }
 }

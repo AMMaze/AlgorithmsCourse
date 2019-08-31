@@ -11,5 +11,6 @@ public class Main {
         tree.add(80);
         tree.remove(75);
         tree.print();
+        System.out.println(tree.depth());
     }
 }
