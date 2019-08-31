@@ -5,7 +5,7 @@ import java.util.Stack;
 
 public class BinaryTree {
 
-    private class Node {
+    public static class Node {
         private int value;
         private Node leftChild, rightChild;
 
@@ -39,6 +39,14 @@ public class BinaryTree {
 
         public void print() {
             System.out.print(value);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (!(obj instanceof Node))
+                return false;
+            Node node = (Node) obj;
+            return value == node.getValue();
         }
     }
 
@@ -127,7 +135,9 @@ public class BinaryTree {
         Node left = it.getLeftChild();
         Node right = it.getRightChild();
 
-        if (parent.getValue() > key) {
+        if (it.equals(root)) {
+            root = null;
+        } else if (parent.getValue() > key) {
             parent.setLeftChild(null);
         } else {
             parent.setRightChild(null);
