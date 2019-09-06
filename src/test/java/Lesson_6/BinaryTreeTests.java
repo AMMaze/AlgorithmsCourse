@@ -1,6 +1,5 @@
 package Lesson_6;
 
-import Lesson_4.linkedlist.LinkedList;
 import org.junit.Assert;
 import org.junit.Test;
 
