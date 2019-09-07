@@ -62,18 +62,41 @@ public class Graph {
         vertexList[0].wasVisited = true;
         displayVertex(0);
         Queue<Integer> queue = new LinkedList<>();
-        queue.add(0); // Вставка в конец очереди
+        queue.add(0);
         int v2;
         while(!queue.isEmpty()){
             int v1 = queue.remove();
             while((v2=getAdjUnvisitedVertex(v1)) != -1){
-                vertexList[v2].wasVisited = true; // Пометка
-                displayVertex(v2); // Вывод
+                vertexList[v2].wasVisited = true;
+                displayVertex(v2);
                 queue.add(v2);
             }
         }
-        for(int i=0; i<size; i++) // Сброс флагов
+        for(int i=0; i<size; i++)
             vertexList[i].wasVisited = false;
+    }
+
+    public int minbfs(int start, int end) {
+        vertexList[start].wasVisited = true;
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(start);
+        int[] shortestPath = new int[size];
+        for (int i = 0; i < size; i++) {
+            shortestPath[i] = Integer.MAX_VALUE;
+        }
+        shortestPath[start] = 0;
+        int v2;
+        while(!queue.isEmpty()){
+            int v1 = queue.remove();
+            while((v2=getAdjUnvisitedVertex(v1)) != -1){
+                vertexList[v2].wasVisited = true;
+                shortestPath[v2] = Math.min(shortestPath[v1] + 1, shortestPath[v2]);
+                queue.add(v2);
+            }
+        }
+        for(int i=0; i<size; i++)
+            vertexList[i].wasVisited = false;
+        return shortestPath[end];
     }
 
 }

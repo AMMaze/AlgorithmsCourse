@@ -29,6 +29,6 @@ public class Main {
         graph.addEdge(8, 7);
         graph.addEdge(9, 7);
 
-        graph.bfs();
+        System.out.println(graph.minbfs(0, 7));
     }
 }
