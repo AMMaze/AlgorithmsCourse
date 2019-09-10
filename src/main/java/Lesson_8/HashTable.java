@@ -1,20 +1,29 @@
 package Lesson_8;
 
+import java.lang.reflect.Array;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
 public class HashTable{
-    private Item[] hashArr;
+    private List<Item>[] hashArr;
     private int arrSize;
     private Item nonItem;
 
+    @SuppressWarnings("unchecked")
     public HashTable(int size){
         this.arrSize = size;
-        hashArr = new Item[arrSize];
+        hashArr = (LinkedList<Item>[]) Array.newInstance(LinkedList.class, arrSize);
         nonItem = new Item(-1);
     }
 
     public void display(){
         for(int i=0;i<arrSize;i++){
             if(hashArr[i] !=null){
-                System.out.println(hashArr[i].getKey());
+                for (Item item : hashArr[i]) {
+                    System.out.print(item.getKey() + "  ");
+                }
+                System.out.println();
             } else {
                 System.out.println("***");
             }
@@ -28,36 +37,49 @@ public class HashTable{
     public void insert(Item item){
         int key = item.getKey();
         int hashVal = hashFunc(key);
-        while (hashArr[hashVal] != null && hashArr[hashVal].getKey() != -1) {
-            ++hashVal;
-            hashVal%=arrSize;
-        }
+//        while (hashArr[hashVal] != null && hashArr[hashVal].get(0).getKey() != -1) {
+//            ++hashVal;
+//            hashVal%=arrSize;
+//        }
 
-        hashArr[hashVal] = item;
+        if (hashArr[hashVal] == null) {
+            hashArr[hashVal] = new LinkedList<Item>();
+        } else if (hashArr[hashVal].get(0).getKey() == -1) {
+            hashArr[hashVal].clear();
+        }
+        hashArr[hashVal].add(item);
     }
 
     public Item delete(int key){
         int hashVal = hashFunc(key);
-        while (hashArr[hashVal] != null) {
-            if (hashArr[hashVal].getKey() == key){
-                Item temp = hashArr[hashVal];
-                hashArr[hashVal] = nonItem;
-                return temp;
+        if (hashArr[hashVal] != null) {
+            Iterator<Item> itemIterator = hashArr[hashVal].iterator();
+            while (itemIterator.hasNext()) {
+                Item item = itemIterator.next();
+                if (item.getKey() == key) {
+//                    Item temp = hashArr[hashVal].get(0);
+                    hashArr[hashVal].remove(item);
+                    if (hashArr[hashVal].size() == 0)
+                        hashArr[hashVal].add(nonItem);
+                    return item;
+                }
             }
-            ++hashVal;
-            hashVal%=arrSize;
+//            ++hashVal;
+//            hashVal%=arrSize;
         }
         return null;
     }
 
     public Item find(int key){
         int hashVal = hashFunc(key);
-        while (hashArr[hashVal] != null) {
-            if (hashArr[hashVal].getKey() == key){
-                return hashArr[hashVal];
+        if (hashArr[hashVal] != null) {
+            for (Item item : hashArr[hashVal]) {
+                if (item.getKey() == key) {
+                    return item;
+                }
             }
-            ++hashVal;
-            hashVal%=arrSize;
+//            ++hashVal;
+//            hashVal%=arrSize;
         }
         return null;
     }
